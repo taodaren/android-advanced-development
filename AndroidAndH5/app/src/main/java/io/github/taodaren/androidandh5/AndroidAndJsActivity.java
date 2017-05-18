@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -46,6 +47,9 @@ public class AndroidAndJsActivity extends Activity implements View.OnClickListen
         //设置客户端-不跳转到默认浏览器
         webView.setWebViewClient(new WebViewClient());
 
+        //设置支持js调用java
+        webView.addJavascriptInterface(new AndroidAndJsInterface(), "Android");
+
         //加载网络资源
 //        webView.loadUrl("https://taodaren.github.io/");
         //加载本地资源
@@ -78,5 +82,12 @@ public class AndroidAndJsActivity extends Activity implements View.OnClickListen
         webView.loadUrl("javascript:javaCallJs(" + "'" + number + "'" + ")");
         //显示页面
         setContentView(webView);
+    }
+
+    class AndroidAndJsInterface {
+        @JavascriptInterface
+        public void showToast() {
+            Toast.makeText(AndroidAndJsActivity.this, "我被js调用了", Toast.LENGTH_SHORT).show();
+        }
     }
 }
