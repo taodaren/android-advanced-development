@@ -45,7 +45,9 @@ public class AndroidAndJsActivity extends Activity implements View.OnClickListen
         //设置客户端-不跳转到默认浏览器
         webView.setWebViewClient(new WebViewClient());
         //加载网络资源
-        webView.loadUrl("https://taodaren.github.io/");
+//        webView.loadUrl("https://taodaren.github.io/");
+        //加载本地资源
+        webView.loadUrl("file:///android_asset/JavaAndJavaScriptCall.html");
         //显示页面
         setContentView(webView);
     }
