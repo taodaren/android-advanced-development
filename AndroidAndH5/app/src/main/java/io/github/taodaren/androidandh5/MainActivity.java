@@ -1,11 +1,12 @@
 package io.github.taodaren.androidandh5;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends Activity implements View.OnClickListener {
     private Button btnJavaAndJs;
     private Button btnJsCallJava;
     private Button btnJsCallPhone;
@@ -30,7 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v == btnJavaAndJs) {
-
+            Intent intent = new Intent(this, AndroidAndJsActivity.class);
+            startActivity(intent);
         } else if (v == btnJsCallJava) {
 
         } else if (v == btnJsCallPhone) {
