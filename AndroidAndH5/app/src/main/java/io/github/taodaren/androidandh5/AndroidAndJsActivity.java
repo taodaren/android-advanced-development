@@ -22,7 +22,7 @@ public class AndroidAndJsActivity extends Activity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_android_and_js);
         findViews();
-//        initWebView();
+        initWebView();
     }
 
     private void findViews() {
@@ -36,6 +36,7 @@ public class AndroidAndJsActivity extends Activity implements View.OnClickListen
     private void initWebView() {
         webView = new WebView(this);
         WebSettings settings = webView.getSettings();
+
         //设置支持javaScript脚本语言
         settings.setJavaScriptEnabled(true);
         //支持双击-前提是页面要支持才显示
@@ -44,12 +45,14 @@ public class AndroidAndJsActivity extends Activity implements View.OnClickListen
         settings.setBuiltInZoomControls(true);
         //设置客户端-不跳转到默认浏览器
         webView.setWebViewClient(new WebViewClient());
+
         //加载网络资源
 //        webView.loadUrl("https://taodaren.github.io/");
         //加载本地资源
         webView.loadUrl("file:///android_asset/JavaAndJavaScriptCall.html");
+
         //显示页面
-        setContentView(webView);
+//        setContentView(webView);
     }
 
     @Override
@@ -66,8 +69,14 @@ public class AndroidAndJsActivity extends Activity implements View.OnClickListen
             Toast.makeText(this, "账号或密码为空", Toast.LENGTH_SHORT).show();
         } else {
             //登录
-            Toast.makeText(this, "1234", Toast.LENGTH_SHORT).show();
-            initWebView();
+            callJs(number);
         }
+    }
+
+    private void callJs(String number) {
+        //java调用Js
+        webView.loadUrl("javascript:javaCallJs(" + "'" + number + "'" + ")");
+        //显示页面
+        setContentView(webView);
     }
 }
