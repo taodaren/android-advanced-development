@@ -1,10 +1,14 @@
 package io.github.taodaren.androidandh5;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 public class JsCallJavaVideoActivity extends Activity {
     private WebView webView;
@@ -24,6 +28,25 @@ public class JsCallJavaVideoActivity extends Activity {
         settings.setBuiltInZoomControls(true);
 
         webView.setWebViewClient(new WebViewClient());
+        //设置支持js调用java
+        webView.addJavascriptInterface(new AndroidAndJsInterface(), "android");
         webView.loadUrl("file:///android_asset/RealNetJSCallJavaActivity.htm");
     }
+
+    /**
+     * 该类被 Js 调用
+     */
+    class AndroidAndJsInterface {
+
+        @JavascriptInterface
+        public void playVideo(int id, String videoUrl, String title) {
+            //调用所有播放器
+            Intent intent = new Intent();
+            intent.setDataAndType(Uri.parse(videoUrl), "video/*");
+            startActivity(intent);
+
+            Toast.makeText(JsCallJavaVideoActivity.this, "videoUrl==" + videoUrl, Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
