@@ -37,7 +37,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
             Intent intent = new Intent(this, JsCallJavaVideoActivity.class);
             startActivity(intent);
         } else if (v == btnJsCallPhone) {
-
+            Intent intent = new Intent(this, JsCallJavaCallPhoneActivity.class);
+            startActivity(intent);
         }
     }
 }
